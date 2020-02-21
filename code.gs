@@ -14,7 +14,6 @@ var commands = {
 };
 
 // Обработка всех входящих запросов от бота
-https://paste.ofcode.org/97812906
 function doPost(e) {
   // Принимаем запрос
   var update = JSON.parse(e.postData.contents);
