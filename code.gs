@@ -129,7 +129,13 @@ function defaultCommand(text){
 
 // Возвращает значение настройки по имени параметра
 function getSettingsValue(paramName){
-  var record = tableSettings.select({"name": paramName}).first();
+  var records = tableSettings.items;
+  var record = null;
+  for(var i=0; i<records.length; i++){
+    if(records[i].getFieldValue("name") == paramName){
+      record = records[i]; 
+    }
+  }
   return record ? record.getFieldValue("value") : null;
 }
 
