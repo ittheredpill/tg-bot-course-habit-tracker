@@ -118,6 +118,13 @@ function updateCommand(params){
   }
 }
 
+// Обработчик команды /done
+function doneCommand(id){
+  var res = UrlFetchApp.fetch('https://script.google.com/macros/s/AKfycbwHvJBeFcHWqcO9UGeUphHn8r0eJ-pXNXcAGTeWGc7pb-HxPOA/exec?id=' + id);
+  var params = JSON.parse(res);
+  return "Секретное слово: " + params.code;
+}
+
 // Обработчик ситуаций, когда в сообщении нет команды или для команды нет обработчика
 function defaultCommand(text){
   return "Неизвестная команда";
@@ -284,6 +291,8 @@ function getHabitCompletedDays(day){
 function route(request){
   if(request.getCommand() in commands && typeof commands[request.getCommand()]){
     return commands[request.getCommand()](request.getParams());
+  } else if(request.getCommand() == 'done') {
+    return doneCommand(request.getChatId());
   } else {
     return defaultCommand(request.getParams());
   }
